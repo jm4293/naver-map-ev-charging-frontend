@@ -9,7 +9,7 @@ export const Header = () => {
     <>
       <div className="header_style">
         <div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-5">
             <AiOutlineUser size="2rem" />
             <div>로그인을 해주세요</div>
           </div>
