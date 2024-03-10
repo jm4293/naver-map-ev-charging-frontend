@@ -3,5 +3,3 @@ declare global {
     naver: any;
   }
 }
-
-export {};
