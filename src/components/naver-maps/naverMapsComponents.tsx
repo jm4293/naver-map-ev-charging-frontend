@@ -35,7 +35,9 @@ export const NaverMapsComponents = () => {
   const [mapPoint, setMapPoint] = useState<mapPointInterface>({ x: null, y: null });
   const [myLocation, setMyLocation] = useState<locationInterface | string>('');
 
-  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  // const [searchKeyword, setSearchKeyword] = useState<string>('');
+
+  const getGeocode = useGetGeocode();
 
   useEffect(() => {
     // const mapDiv = document.getElementById('map');
@@ -67,17 +69,17 @@ export const NaverMapsComponents = () => {
   }, []);
 
   const btn_search_onClick = (data: searchKeywordInterface) => {
-    console.log('data', data);
-
     if (data.searchKeyword === '') {
       alert('검색어를 입력하세요.');
       return;
     }
-  };
 
-  // console.log('windowNaver', windowNaver);
-  // console.log('mapPoint', mapPoint);
-  // console.log('myLocation', myLocation);
+    getGeocode(data.searchKeyword)
+      .then((response) => {
+        console.log('response', response.data);
+      })
+      .catch();
+  };
 
   return (
     <div className={style.container}>
