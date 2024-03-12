@@ -1,12 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { useCallback } from 'react';
 
-export const useGetGeocode = () => {
-  const mutation = useMutation({
-    mutationFn: async (searchKeyword: string) =>
-      axios.get(`http://localhost:4100/api/geocoding?searchKeyword=${searchKeyword}`),
+export const useGetGeocode = (state?: any, setState?: any) => {
+  return useMutation({
+    mutationFn: async (queryString: string) =>
+      axios.get(`http://localhost:4100/api/geocoding?searchKeyword=${queryString}`),
   });
-
-  return useCallback(async (searchKeyword: string) => await mutation.mutateAsync(searchKeyword), [mutation]);
 };

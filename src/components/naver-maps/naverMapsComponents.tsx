@@ -51,7 +51,9 @@ export const NaverMapsComponents = () => {
   const [searchedLocation, setSearchedLocation] = useState<searchedLocationInterface>(searchKeywordDefaultValues);
   const [isSearchedLocationModal, setIsSearchedLocationModal] = useState<boolean>(false);
 
-  const getGeocode = useGetGeocode();
+  const getGeocode = useGetGeocode(isSearchedLocationModal, setIsSearchedLocationModal);
+
+  // getGeocode.mutate();
 
   useEffect(() => {
     const mapDiv = mapRef.current;
@@ -87,7 +89,8 @@ export const NaverMapsComponents = () => {
       return;
     }
 
-    getGeocode(data.searchKeyword)
+    getGeocode
+      .mutateAsync(data.searchKeyword)
       .then((response) => {
         if (response.data.addresses.length > 0) {
           setIsSearchedLocationModal(true);
