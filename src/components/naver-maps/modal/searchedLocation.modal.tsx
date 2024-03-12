@@ -1,18 +1,27 @@
 import React, { FC } from 'react';
 import {
-  searchedLocationInterface,
+  searchedLocationListInterface,
   selectedLocationInterface,
 } from '../../../interface/components/naver-maps/naver-maps.interfaece';
 
 interface Props {
   setIsSearchedLocationModal: (value: boolean) => void;
-  searchedLocation: searchedLocationInterface;
+  searchedLocationList: searchedLocationListInterface;
   setSelectedLocation: (value: selectedLocationInterface) => void;
 }
 
-const SearchedLocationModal: FC<Props> = ({ setIsSearchedLocationModal, searchedLocation, setSelectedLocation }) => {
+const SearchedLocationModal: FC<Props> = ({
+  setIsSearchedLocationModal,
+  searchedLocationList,
+  setSelectedLocation,
+}) => {
   const btn_onClick = (el: selectedLocationInterface) => {
-    setSelectedLocation(el);
+    setSelectedLocation({
+      roadAddress: el.roadAddress,
+      englishAddress: el.englishAddress,
+      x: +el.y,
+      y: +el.x,
+    });
     setIsSearchedLocationModal(false);
   };
 
@@ -34,7 +43,7 @@ const SearchedLocationModal: FC<Props> = ({ setIsSearchedLocationModal, searched
             </div>
             <div className="relative p-6 flex-auto">
               <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                {searchedLocation.addresses.map((el: selectedLocationInterface) => {
+                {searchedLocationList.addresses.map((el: selectedLocationInterface) => {
                   return (
                     <div
                       key={el.roadAddress}
@@ -43,8 +52,8 @@ const SearchedLocationModal: FC<Props> = ({ setIsSearchedLocationModal, searched
                     >
                       <div>도로명 주소: {el.roadAddress}</div>
                       <div>영문 주소: {el.englishAddress}</div>
-                      <div>x: {el.x}</div>
-                      <div>y: {el.y}</div>
+                      <div>x: {el.y}</div>
+                      <div>y: {el.x}</div>
                     </div>
                   );
                 })}

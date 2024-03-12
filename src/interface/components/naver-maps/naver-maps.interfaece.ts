@@ -19,7 +19,7 @@ export interface selectedLocationInterface {
   y: number;
 }
 
-export interface searchedLocationInterface {
+export interface searchedLocationListInterface {
   addresses: [];
   errorMessage: string;
   meta: {

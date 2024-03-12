@@ -6,12 +6,12 @@ import SearchedLocationModal from './modal/searchedLocation.modal';
 import {
   locationInterface,
   mapPointInterface,
-  searchedLocationInterface,
+  searchedLocationListInterface,
   searchKeywordInterface,
   selectedLocationInterface,
 } from '../../interface/components/naver-maps/naver-maps.interfaece';
 
-const searchKeywordDefaultValues: searchedLocationInterface = {
+const searchKeywordDefaultValues: searchedLocationListInterface = {
   addresses: [],
   errorMessage: '',
   meta: {
@@ -25,13 +25,13 @@ const searchKeywordDefaultValues: searchedLocationInterface = {
 const selectedLocationDefaultValues: selectedLocationInterface = {
   roadAddress: '',
   englishAddress: '',
-  x: 37.3595704,
-  y: 127.105399,
+  x: 35.132965,
+  y: 129.091799,
 };
 
 export const NaverMapsComponents = () => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const windowNaver = useRef<any>(window.naver).current;
+  const mapCurrent = useRef<naver.maps.Map | null>(null);
 
   const {
     register,
@@ -48,40 +48,56 @@ export const NaverMapsComponents = () => {
   const [myLocation, setMyLocation] = useState<locationInterface | string>('');
 
   const [selectedLocation, setSelectedLocation] = useState<selectedLocationInterface>(selectedLocationDefaultValues);
-  const [searchedLocation, setSearchedLocation] = useState<searchedLocationInterface>(searchKeywordDefaultValues);
+  const [searchedLocationList, setSearchedLocationList] =
+    useState<searchedLocationListInterface>(searchKeywordDefaultValues);
+
   const [isSearchedLocationModal, setIsSearchedLocationModal] = useState<boolean>(false);
 
   const getGeocode = useGetGeocode(isSearchedLocationModal, setIsSearchedLocationModal);
 
-  // getGeocode.mutate();
+  useEffect(() => {
+    if (!mapRef.current) {
+      return;
+    }
+
+    const location = new naver.maps.LatLng(selectedLocation.x, selectedLocation.y);
+    const mapOptions = {
+      center: location,
+      zoom: 15,
+    };
+
+    mapCurrent.current = new naver.maps.Map(mapRef.current, mapOptions);
+  }, []);
 
   useEffect(() => {
-    const mapDiv = mapRef.current;
-
-    if (mapDiv) {
-      // Naver 지도 초기화
-      const map = new window.naver.maps.Map(mapDiv, {
-        center: new naver.maps.LatLng(selectedLocation.x, selectedLocation.y),
-        zoom: 15,
-      });
-
-      // // 지도에 마커 추가 예시
-      // const marker = new window.naver.maps.Marker({
-      //   position: new window.naver.maps.LatLng(37.5665, 126.978),
-      //   map: map,
-      // });
-
-      // window.naver.maps.Event.addDOMListener(mapDiv, 'click', () => {
-      //   const coordinate = { x: map.data.map.center.x, y: map.data.map.center.y };
-      //   setMapPoint({ x: coordinate.x, y: coordinate.y });
-      //
-      //   console.log(map.data); // 데이터 객체의 구조 확인
-      //
-      //   const coordinate = { x: map.data.center.x, y: map.data.center.y };
-      //   setMapPoint({ x: coordinate.x, y: coordinate.y });
-      // });
+    if (!mapCurrent.current) {
+      return;
     }
-  }, [selectedLocation.x, selectedLocation.y]);
+
+    const location = new naver.maps.LatLng(selectedLocation.x, selectedLocation.y);
+    mapCurrent.current.setCenter(location);
+    mapCurrent.current.setZoom(15);
+
+    new naver.maps.Marker({
+      position: new naver.maps.LatLng(selectedLocation.x, selectedLocation.y),
+      map: mapCurrent.current,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!mapCurrent.current) {
+      return;
+    }
+
+    const location = new naver.maps.LatLng(selectedLocation.x, selectedLocation.y);
+    mapCurrent.current.setCenter(location);
+    mapCurrent.current.setZoom(15);
+
+    new naver.maps.Marker({
+      position: new naver.maps.LatLng(selectedLocation.x, selectedLocation.y),
+      map: mapCurrent.current,
+    });
+  }, [selectedLocation]);
 
   const btn_search_onClick = (data: searchKeywordInterface) => {
     if (data.searchKeyword === '') {
@@ -94,23 +110,21 @@ export const NaverMapsComponents = () => {
       .then((response) => {
         if (response.data.addresses.length > 0) {
           setIsSearchedLocationModal(true);
+        } else {
+          alert('검색 결과가 없습니다.');
         }
 
-        setSearchedLocation(response.data);
+        setSearchedLocationList(response.data);
       })
       .catch();
   };
-
-  // console.log('searchedLocation', searchedLocation);
-  // console.log('isSearchedLocationModal', isSearchedLocationModal);
-  console.log('selectedLocation', selectedLocation);
 
   return (
     <>
       {isSearchedLocationModal && (
         <SearchedLocationModal
           setIsSearchedLocationModal={setIsSearchedLocationModal}
-          searchedLocation={searchedLocation}
+          searchedLocationList={searchedLocationList}
           setSelectedLocation={setSelectedLocation}
         />
       )}
