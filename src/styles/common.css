@@ -81,7 +81,7 @@ button {
 
 .footer_item_style {
     cursor: pointer;
-    width: calc(100% / 4);
+    width: calc(100% / 5);
     height: 100%;
     display: flex;
     flex-direction: column;
