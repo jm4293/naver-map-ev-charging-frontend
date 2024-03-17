@@ -4,6 +4,7 @@ import { RiBattery2ChargeFill } from 'react-icons/ri';
 import { IoIosWallet } from 'react-icons/io';
 import { FaCar } from 'react-icons/fa6';
 import { BsThreeDots } from 'react-icons/bs';
+import { BsChatDotsFill } from 'react-icons/bs';
 
 // import { footer_item_style, footer_style } from '../../styles/layout/layout.style';
 // import { useRouterStore } from '../../store/zustand/router.store';
@@ -28,13 +29,9 @@ export const Footer = () => {
           <RiBattery2ChargeFill size="2rem" />
           <div>충전소 찾기</div>
         </div>
-        <div className="footer_item_style" onClick={() => onClickHandler('/wallet')}>
-          <IoIosWallet size="2rem" />
-          <div>카드지갑</div>
-        </div>
-        <div className="footer_item_style" onClick={() => onClickHandler('/mycar')}>
-          <FaCar size="2rem" />
-          <div>내차관리</div>
+        <div className="footer_item_style" onClick={() => onClickHandler('/chatting')}>
+          <BsChatDotsFill size="2rem" />
+          <div>채팅</div>
         </div>
         <div className="footer_item_style" onClick={() => onClickHandler('/setting')}>
           <BsThreeDots size="2rem" />

@@ -30,9 +30,6 @@ const selectedLocationDefaultValues: selectedLocationInterface = {
 };
 
 export const NaverMapsComponents = () => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapCurrent = useRef<naver.maps.Map | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -44,15 +41,19 @@ export const NaverMapsComponents = () => {
     },
   });
 
-  const [mapPoint, setMapPoint] = useState<mapPointInterface>({ x: null, y: null });
-  const [myLocation, setMyLocation] = useState<locationInterface | string>('');
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapCurrent = useRef<naver.maps.Map | null>(null);
 
+  // 현재 선택된 위치
   const [selectedLocation, setSelectedLocation] = useState<selectedLocationInterface>(selectedLocationDefaultValues);
+  // 검색결과 리스트
   const [searchedLocationList, setSearchedLocationList] =
     useState<searchedLocationListInterface>(searchKeywordDefaultValues);
 
+  // 검색결과 모달 상태
   const [isSearchedLocationModal, setIsSearchedLocationModal] = useState<boolean>(false);
 
+  // 주소검색 api
   const getGeocode = useGetGeocode(isSearchedLocationModal, setIsSearchedLocationModal);
 
   useEffect(() => {

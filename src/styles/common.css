@@ -73,7 +73,7 @@ button {
 
 .footer_style {
     height: 7.7rem;
-    padding: 1.2rem 0 2.4rem;
+    /*padding: 1.2rem 0 2.4rem;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,12 +81,13 @@ button {
 
 .footer_item_style {
     cursor: pointer;
-    width: calc(100% / 5);
+    width: calc(100% / 4);
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 }
 
 .footer_item_style > div {
