@@ -29,7 +29,7 @@ export const Footer = () => {
           <BsChatDotsFill size="2rem" />
           <div>채팅</div>
         </div>
-        <div className="footer_item_style" onClick={() => onClickHandler('/board')}>
+        <div className="footer-item-style" onClick={() => onClickHandler('/board')}>
           <FaFlipboard size="2rem" />
           <div>게시판</div>
         </div>
