@@ -19,6 +19,13 @@ export interface selectedLocationInterface {
   y: number;
 }
 
+export const selectedLocationDefaultValues: selectedLocationInterface = {
+  roadAddress: '',
+  englishAddress: '',
+  x: 35.132965,
+  y: 129.091799,
+};
+
 export interface searchedLocationListInterface {
   addresses: [];
   errorMessage: string;
@@ -29,3 +36,14 @@ export interface searchedLocationListInterface {
   };
   status: string;
 }
+
+export const searchKeywordDefaultValues: searchedLocationListInterface = {
+  addresses: [],
+  errorMessage: '',
+  meta: {
+    totalCount: 0,
+    page: 0,
+    count: 0,
+  },
+  status: '',
+};

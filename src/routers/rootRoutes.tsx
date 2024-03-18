@@ -6,12 +6,15 @@ import { Layout } from '../components/layout/layout';
 import { ChargingStation } from '../pages/chargingStation/chargingStation';
 import { Setting } from '../pages/setting/setting';
 import { Chatting } from '../pages/chatting/chatting';
+import { Login } from '../pages/users/login/login';
 
 export const RootRouters = () => {
   const BASE_URL = process.env.PUBLIC_URL;
 
   return (
     <Routes>
+      <Route path={BASE_URL + '/login'} element={<Login />} />
+
       <Route path={BASE_URL} element={<Layout />}>
         <Route path={BASE_URL + '/home'} element={<Home />} />
         <Route path={BASE_URL + '/charging'} element={<ChargingStation />} />

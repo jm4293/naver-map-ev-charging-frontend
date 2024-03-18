@@ -4,30 +4,12 @@ import { useForm } from 'react-hook-form';
 import { useGetGeocode } from '../../api/naver-maps/useGetGeocode';
 import SearchedLocationModal from './modal/searchedLocation.modal';
 import {
-  locationInterface,
-  mapPointInterface,
   searchedLocationListInterface,
+  searchKeywordDefaultValues,
   searchKeywordInterface,
+  selectedLocationDefaultValues,
   selectedLocationInterface,
 } from '../../interface/components/naver-maps/naver-maps.interfaece';
-
-const searchKeywordDefaultValues: searchedLocationListInterface = {
-  addresses: [],
-  errorMessage: '',
-  meta: {
-    totalCount: 0,
-    page: 0,
-    count: 0,
-  },
-  status: '',
-};
-
-const selectedLocationDefaultValues: selectedLocationInterface = {
-  roadAddress: '',
-  englishAddress: '',
-  x: 35.132965,
-  y: 129.091799,
-};
 
 export const NaverMapsComponents = () => {
   const {
@@ -100,7 +82,7 @@ export const NaverMapsComponents = () => {
     });
   }, [selectedLocation]);
 
-  const btn_search_onClick = (data: searchKeywordInterface) => {
+  const btn_onClick_search = (data: searchKeywordInterface) => {
     if (data.searchKeyword === '') {
       alert('검색어를 입력하세요.');
       return;
@@ -109,6 +91,8 @@ export const NaverMapsComponents = () => {
     getGeocode
       .mutateAsync(data.searchKeyword)
       .then((response) => {
+        console.log(response);
+
         if (response.data.addresses.length > 0) {
           setIsSearchedLocationModal(true);
         } else {
@@ -117,7 +101,10 @@ export const NaverMapsComponents = () => {
 
         setSearchedLocationList(response.data);
       })
-      .catch();
+      .catch((error) => {
+        console.log(error);
+        alert('서버 오류');
+      });
   };
 
   return (
@@ -133,9 +120,9 @@ export const NaverMapsComponents = () => {
       <div className={style.container}>
         <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
 
-        <form className={style.searchContainer} onSubmit={handleSubmit(btn_search_onClick)}>
-          <input className={style.searchInput} {...register('searchKeyword')} placeholder="검색어를 입력하세요." />
-          <button className={style.searchButton}>검색</button>
+        <form className={style.searchContainer} onSubmit={handleSubmit(btn_onClick_search)}>
+          <input className="input-search" {...register('searchKeyword')} placeholder="검색어를 입력하세요." />
+          <button className="button-confirm">검색</button>
         </form>
       </div>
     </>

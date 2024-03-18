@@ -6,7 +6,6 @@ import { FaCar } from 'react-icons/fa6';
 import { BsThreeDots } from 'react-icons/bs';
 import { BsChatDotsFill } from 'react-icons/bs';
 
-// import { footer_item_style, footer_style } from '../../styles/layout/layout.style';
 // import { useRouterStore } from '../../store/zustand/router.store';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,20 +19,20 @@ export const Footer = () => {
 
   return (
     <>
-      <div className="footer_style">
-        <div className="footer_item_style" onClick={() => onClickHandler('/home')}>
+      <div className="footer-style">
+        <div className="footer-item-style" onClick={() => onClickHandler('/home')}>
           <BiSolidHome size="2rem" />
           <div>홈</div>
         </div>
-        <div className="footer_item_style" onClick={() => onClickHandler('/charging')}>
+        <div className="footer-item-style" onClick={() => onClickHandler('/charging')}>
           <RiBattery2ChargeFill size="2rem" />
           <div>충전소 찾기</div>
         </div>
-        <div className="footer_item_style" onClick={() => onClickHandler('/chatting')}>
+        <div className="footer-item-style" onClick={() => onClickHandler('/chatting')}>
           <BsChatDotsFill size="2rem" />
           <div>채팅</div>
         </div>
-        <div className="footer_item_style" onClick={() => onClickHandler('/setting')}>
+        <div className="footer-item-style" onClick={() => onClickHandler('/setting')}>
           <BsThreeDots size="2rem" />
           <div>더보기</div>
         </div>
