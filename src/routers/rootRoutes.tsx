@@ -8,6 +8,7 @@ import { Setting } from '../pages/setting/setting';
 import { Chatting } from '../pages/chatting/chatting';
 import { Login } from '../pages/users/login/login';
 import { Boards } from '../pages/boards/boards';
+import { SignUp } from '../pages/users/signUp/signUp';
 
 export const RootRouters = () => {
   const BASE_URL = process.env.PUBLIC_URL;
@@ -15,6 +16,7 @@ export const RootRouters = () => {
   return (
     <Routes>
       <Route path={BASE_URL + '/login'} element={<Login />} />
+      <Route path={BASE_URL + '/signup'} element={<SignUp />} />
 
       <Route path={BASE_URL} element={<Layout />}>
         <Route path={BASE_URL + '/home'} element={<Home />} />

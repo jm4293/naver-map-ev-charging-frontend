@@ -1,9 +1,11 @@
 import style from './login.module.css';
 import { useForm } from 'react-hook-form';
-import { searchKeywordInterface } from '../../../interface/components/naver-maps/naver-maps.interfaece';
 import { loginDefaultValues, loginInterface } from '../../../interface/pages/users/login/login.interface';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -19,7 +21,9 @@ export const Login = () => {
 
   const btn_onClick_findIdPassword = () => {};
 
-  const btn_onClick_signUp = () => {};
+  const btn_onClick_signUp = () => {
+    navigate(process.env.PUBLIC_URL + '/signup');
+  };
 
   return (
     <>
