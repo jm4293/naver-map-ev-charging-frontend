@@ -8,22 +8,30 @@ import { useSignupAPI } from '../../../api/users/useSignupAPI';
 export const SignUp = () => {
   const navigate = useNavigate();
 
-  const response = useSignupAPI();
+  const signupAPI = useSignupAPI();
 
   const {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
   } = useForm<signUpInterface>({
     defaultValues: signUpDefaultValues,
   });
 
   const btn_onClick_signUp = (data: signUpInterface) => {
-    console.log(data);
-    console.log('signup_post', signup_post);
+    if (data.password !== data.passwordConfirm) {
+      setError('password', {
+        type: 'incorrectPasswordConfirm',
+      });
+      setError('passwordConfirm', {
+        type: 'incorrectPasswordConfirm',
+      });
+      return;
+    }
 
-    response.mutate(data);
+    signupAPI.mutate(data);
   };
 
   return (
@@ -74,6 +82,9 @@ export const SignUp = () => {
               )}
               {errors.passwordConfirm && errors.passwordConfirm.type === 'minLength' && (
                 <p className="validation-message">비밀번호는 8자 이상이어야 합니다.</p>
+              )}
+              {errors.passwordConfirm && errors.passwordConfirm.type === 'incorrectPasswordConfirm' && (
+                <p className="validation-message">비밀번호가 일치하지 않습니다.</p>
               )}
 
               <input
