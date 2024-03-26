@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import { signUpDefaultValues, signUpInterface } from '../../../interface/pages/users/signUp/signUp.interface';
 import { signup_post } from '../../../api/users/user-api';
 import { useSignupAPI } from '../../../api/users/useSignupAPI';
+import { useState } from 'react';
+import { DaumPostcode } from '../../../util/daum-postcode/daumPostcode';
 
 export const SignUp = () => {
   const navigate = useNavigate();
 
-  const signupAPI = useSignupAPI();
+  const [addressInfo, setAddressInfo] = useState({ zipCode: '', address: '' });
 
   const {
     register,
@@ -19,6 +21,8 @@ export const SignUp = () => {
   } = useForm<signUpInterface>({
     defaultValues: signUpDefaultValues,
   });
+
+  const signupAPI = useSignupAPI();
 
   const btn_onClick_signUp = (data: signUpInterface) => {
     if (data.password !== data.passwordConfirm) {
@@ -31,8 +35,10 @@ export const SignUp = () => {
       return;
     }
 
-    signupAPI.mutate(data);
+    signupAPI.mutate(Object.assign({}, data, addressInfo));
   };
+
+  console.log('addressInfo', addressInfo);
 
   return (
     <>
@@ -96,13 +102,35 @@ export const SignUp = () => {
               />
               {errors.name && <p className="validation-message">이름을 입력하세요.</p>}
 
-              <input className={`w-full h-20 `} {...register('phoneNumber')} placeholder="전화번호를 입력하세요." />
-              {/*{errors.phoneNumber && <p className="validation-message">전화번호를 입력하세요.</p>}*/}
+              <input
+                className={`w-full h-20 ${errors.phoneNumber ? 'active' : ''}`}
+                {...register('phoneNumber', {
+                  required: true,
+                })}
+                placeholder="휴대폰번호를 입력하세요."
+              />
+              {errors.phoneNumber && <p className="validation-message">휴대폰번호를 입력하세요.</p>}
 
-              <input className="w-full h-20" {...register('address')} placeholder="주소를 입력하세요." />
+              <div className="flex items-center gap-1">
+                <input
+                  className="w-1/3 h-20"
+                  {...register('zipCode')}
+                  value={addressInfo.zipCode}
+                  readOnly
+                  placeholder="우편주소"
+                />
+                <input
+                  className="w-2/3 h-20"
+                  {...register('address')}
+                  value={addressInfo.address}
+                  readOnly
+                  placeholder="주소"
+                />
+                {DaumPostcode({ setState: setAddressInfo })}
+              </div>
               <input className="w-full h-20" {...register('detailAddress')} placeholder="상세주소를 입력하세요." />
             </div>
-            <button className="w-1/2 h-20 button-confirm">회원가입</button>
+            <button className="w-1/2 h-20 btn-confirm">회원가입</button>
           </form>
         </div>
       </div>

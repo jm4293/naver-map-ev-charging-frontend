@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export const useSignupAPI = (state?: any, setState?: any, success?: any, error?: any) => {
   return useMutation({
@@ -12,13 +12,8 @@ export const useSignupAPI = (state?: any, setState?: any, success?: any, error?:
       if (success) {
       }
     },
-    onError: (err, variables, context) => {
-      console.log('err', err);
-      console.log('variables', variables);
-      console.log('context', context);
-
-      if (error) {
-      }
+    onError: (err: any, variables, context) => {
+      alert(err.response.data.data);
     },
   });
 };

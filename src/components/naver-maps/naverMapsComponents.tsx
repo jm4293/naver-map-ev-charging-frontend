@@ -122,7 +122,7 @@ export const NaverMapsComponents = () => {
 
         <form className={style.searchContainer} onSubmit={handleSubmit(btn_onClick_search)}>
           <input className="input-search" {...register('searchKeyword')} placeholder="검색어를 입력하세요." />
-          <button className="button-confirm">검색</button>
+          <button className="btn-confirm">검색</button>
         </form>
       </div>
     </>

@@ -4,6 +4,7 @@ export interface signUpInterface {
   passwordConfirm: string;
   name: string;
   phoneNumber: string;
+  zipCode: string;
   address: string;
   detailAddress: string;
 }
@@ -14,6 +15,7 @@ export const signUpDefaultValues: signUpInterface = {
   passwordConfirm: '',
   name: '',
   phoneNumber: '',
+  zipCode: '',
   address: '',
   detailAddress: '',
 };

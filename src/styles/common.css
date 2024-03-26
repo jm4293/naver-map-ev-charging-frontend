@@ -15,21 +15,22 @@ body {
     font-family: "NotoSansMedium";
 }
 
-@media screen and (min-width: 1024px) {
-    html,
-    body {
-        position: absolute;
-        width: 1024px;
-        max-width: 1024px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
+/*@media screen and (min-width: 1024px) {*/
+/*    html,*/
+/*    body {*/
+/*        position: absolute;*/
+/*        width: 1024px;*/
+/*        max-width: 1024px;*/
+/*        left: 50%;*/
+/*        transform: translateX(-50%);*/
+/*    }*/
+/*}*/
 
 @media screen and (max-width: 1024px) {
     html,
     body {
         width: 100vw;
+        font-size: 8px;
     }
 
     button {
@@ -126,7 +127,7 @@ input.active{
     padding-left: 10px;
 }
 
-.button-confirm {
+.btn-confirm {
     padding: 0 2rem;
     border: 1px solid #007bff;
     background-color: #007bff;
@@ -137,10 +138,9 @@ input.active{
     font-size: 2rem;
     color: #fff;
     font-family: "NotoSansBold";
-    min-width: fit-content;
 }
 
-.button-confirm-no-background {
+.btn-confirm-no-background-color {
     padding: 0 2rem;
     border: 1px solid #007bff;
     background-color: #fff;
@@ -151,10 +151,10 @@ input.active{
     font-size: 2rem;
     color: #007bff;
     font-family: "NotoSansBold";
-    min-width: fit-content;
+    white-space: nowrap;
 }
 
-.button-cancel {
+.btn-cancel {
     padding: 0 2rem;
     border: 1px solid #ff4d4f;
     background-color: #ff4d4f;
@@ -165,7 +165,6 @@ input.active{
     font-size: 2rem;
     color: #fff;
     font-family: "NotoSansBold";
-    min-width: fit-content;
 }
 
 
