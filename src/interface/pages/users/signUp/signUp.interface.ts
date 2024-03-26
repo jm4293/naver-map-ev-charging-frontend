@@ -3,10 +3,10 @@ export interface signUpInterface {
   password: string;
   passwordConfirm: string;
   name: string;
-  phoneNumber: string;
-  zipCode: string;
+  phone: string;
+  zipcode: string;
   address: string;
-  detailAddress: string;
+  addressDetail: string;
 }
 
 export const signUpDefaultValues: signUpInterface = {
@@ -14,8 +14,8 @@ export const signUpDefaultValues: signUpInterface = {
   password: '',
   passwordConfirm: '',
   name: '',
-  phoneNumber: '',
-  zipCode: '',
+  phone: '',
+  zipcode: '',
   address: '',
-  detailAddress: '',
+  addressDetail: '',
 };

@@ -10,7 +10,7 @@ export const DaumPostcode = ({ setState }: PostcodeProps) => {
 
   const handleComplete = (data: any) => {
     setState({
-      zipCode: data.zonecode,
+      zipcode: data.zonecode,
       address: data.roadAddress,
     });
   };
@@ -18,7 +18,7 @@ export const DaumPostcode = ({ setState }: PostcodeProps) => {
   const handleClose = (data: any) => {
     if (data === 'FORCE_CLOSE') {
       setState({
-        zipCode: '',
+        zipcode: '',
         address: '',
       });
     }
