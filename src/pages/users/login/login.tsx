@@ -3,22 +3,44 @@ import { useForm } from 'react-hook-form';
 import { loginDefaultValues, loginInterface } from '../../../interface/pages/users/login/login.interface';
 import { useNavigate } from 'react-router-dom';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { useSignInAPI } from '../../../api/users/useSignIn-API';
+import React from 'react';
 
 export const Login = () => {
   const navigate = useNavigate();
   const postCode = useDaumPostcodePopup('https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js');
 
+  const signInAPI = useSignInAPI();
+
   const {
     register,
     handleSubmit,
     watch,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<loginInterface>({
     defaultValues: loginDefaultValues,
   });
 
   const btn_onClick_login = (data: loginInterface) => {
-    console.log(data);
+    if (data.email === '') {
+      setError('email', {
+        type: 'required',
+      });
+
+      return;
+    }
+
+    if (data.password === '') {
+      setError('password', {
+        type: 'required',
+      });
+
+      return;
+    }
+
+    signInAPI.mutate(data);
   };
 
   const btn_onClick_findIdPassword = () => {};
@@ -35,8 +57,32 @@ export const Login = () => {
         <div className="w-full pb-10">
           <form className="flex flex-col items-center" onSubmit={handleSubmit(btn_onClick_login)}>
             <div className="w-3/4 flex flex-col items-center pb-10 gap-10">
-              <input className="w-full h-20" {...register('email')} placeholder="이메일을 입력하세요." />
-              <input className="w-full h-20" {...register('password')} placeholder="비밀번호를 입력하세요." />
+              <div className="w-full">
+                <input
+                  className={`w-full ${errors.email ? 'active' : ''}`}
+                  {...register('email', {
+                    required: '이메일을 입력하세요.',
+                  })}
+                  placeholder="이메일을 입력하세요."
+                />
+                {errors.email && <p className="validation-message">이메일을 입력하세요.</p>}
+              </div>
+              <div className="w-full">
+                <input
+                  className={`w-full ${errors.password ? 'active' : ''}`}
+                  {...register('password', {
+                    required: true,
+                    minLength: 8,
+                  })}
+                  placeholder="비밀번호를 입력하세요."
+                />
+                {errors.password && errors.password.type === 'required' && (
+                  <p className="validation-message">비밀번호를 입력하세요.</p>
+                )}
+                {errors.password && errors.password.type === 'minLength' && (
+                  <p className="validation-message">비밀번호는 8자 이상이어야 합니다.</p>
+                )}
+              </div>
               <button className="w-full btn-confirm">로그인</button>
             </div>
           </form>

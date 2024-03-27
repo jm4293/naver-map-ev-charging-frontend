@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-export interface MutationParamaterInterface {
+export interface mutationParamaterInterface {
   state?: any;
   setState?: Dispatch<SetStateAction<any>>;
 }

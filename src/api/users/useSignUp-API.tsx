@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { MutationParamaterInterface } from '../../interface/api/mutationParamater.interface';
+import { mutationParamaterInterface } from '../../interface/api/mutationParamater.interface';
 import { useNavigate } from 'react-router-dom';
 
-export const useSignupAPI = ({ state, setState }: MutationParamaterInterface) => {
+export const useSignUpAPI = ({ state, setState }: mutationParamaterInterface) => {
   const navigate = useNavigate();
 
   return useMutation({

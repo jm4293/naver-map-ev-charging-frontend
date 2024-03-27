@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import style from './naverMapsComponents.module.css';
 import { useForm } from 'react-hook-form';
-import { useGetGeocode } from '../../api/naver-maps/useGetGeocode';
+import { useGetGeocodeAPI } from '../../api/naver-maps/useGetGeocode-API';
 import SearchedLocationModal from './modal/searchedLocation.modal';
 import {
   searchedLocationListInterface,
@@ -36,7 +36,7 @@ export const NaverMapsComponents = () => {
   const [isSearchedLocationModal, setIsSearchedLocationModal] = useState<boolean>(false);
 
   // 주소검색 api
-  const getGeocode = useGetGeocode(isSearchedLocationModal, setIsSearchedLocationModal);
+  const getGeocode = useGetGeocodeAPI(isSearchedLocationModal, setIsSearchedLocationModal);
 
   useEffect(() => {
     if (!mapRef.current) {

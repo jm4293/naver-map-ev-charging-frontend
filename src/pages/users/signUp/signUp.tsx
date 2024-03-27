@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { signUpDefaultValues, signUpInterface } from '../../../interface/pages/users/signUp/signUp.interface';
 import React, { useEffect, useState } from 'react';
 import { DaumPostcode } from '../../../util/daum-postcode/daumPostcode';
-import { useSignupAPI } from '../../../api';
-import { useDuplicateEmail } from '../../../api/users/useDuplicateEmail';
+import { useDuplicateEmailAPI } from '../../../api/users/useDuplicateEmail-API';
+import { useSignUpAPI } from '../../../api/users/useSignUp-API';
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ export const SignUp = () => {
     defaultValues: signUpDefaultValues,
   });
 
-  const signupAPI = useSignupAPI({});
-  const duplicateEmailAPI = useDuplicateEmail({ setState: setIsDuplicateEmailPass });
+  const signUpAPI = useSignUpAPI({});
+  const duplicateEmailAPI = useDuplicateEmailAPI({ setState: setIsDuplicateEmailPass });
 
   useEffect(() => {
     if (isDuplicateEmailPass) {
@@ -85,7 +85,7 @@ export const SignUp = () => {
       return;
     }
 
-    signupAPI.mutate({
+    signUpAPI.mutate({
       email: data.email,
       password: data.password,
       name: data.name,
